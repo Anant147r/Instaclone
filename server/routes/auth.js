@@ -13,7 +13,7 @@ router.get("/protected",requireLogin,(req,res)=>{
 
 router.post("/signup",(req,res)=>{
     //console.log(req.body);
-    const {name,email,password}=req.body;
+    const {name,email,password,pic}=req.body;
     if(!name || !email || !password)
     {
         return res.status(422).json({error:"Please add all the fields"});
@@ -28,7 +28,8 @@ router.post("/signup",(req,res)=>{
             const user =new User({
                 email,
                 password:hashpassword,
-                name
+                name,
+                pic
             }) 
             user.save().then(user=>{
                 res.json({message:"saved successfully"})
@@ -52,8 +53,8 @@ router.post("/signin",(req,res)=>{
         .then(doMatch=>{
             if(doMatch){
                 const token=jwt.sign({_id:savedUser._id},JWT_SECRET)
-                const {_id,name,email}=savedUser;
-                res.json({token,user:{_id,name,email}});
+                const {_id,name,email,followers,following,pic}=savedUser;
+                res.json({token,user:{_id,name,email,followers,following,pic}});
             }
             else{
                 return res.status(422).json({error:"Incorrect Email or Password"})

@@ -14,6 +14,10 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    pic:{
+        type:String,
+        default:"https://res.cloudinary.com/dwbsck1bg/image/upload/v1599274799/books_xbcrvv.jpg"
+    },
     followers:[{
         type:ObjectId,
         ref:"User"

@@ -11,6 +11,7 @@ const Navbar=()=>{
             return[
                 <li><Link to="/profile">Profile</Link></li>,
                 <li><Link to="/create">Create Post</Link></li>,
+                <li><Link to="/myfollowingpost">My following posts</Link></li>,
                 <button className="btn waves-effect waves-light #6a1b9a purple darken-3"
                 onClick={()=>{
                     localStorage.clear()

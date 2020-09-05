@@ -5,7 +5,7 @@ const UserProfile=()=>{
     const[userProfile,setProfile]=useState(null);
     const {state,dispatch} = useContext(UserContext)
     const {userid} =useParams()
-    const [showfollow,setShowFollow]=useState(true);
+    const [showfollow,setShowFollow]=useState(state?!state.following.includes(userid):true);
     //console.log(userid)
     useEffect(()=>{
         fetch(`/user/${userid}`,{
@@ -73,11 +73,12 @@ const UserProfile=()=>{
             localStorage.setItem("user",JSON.stringify(data))
             setProfile((prevState)=>{
                 
-                const newFollower=prevState.user.followers.filter(item=>item!=data._id)
+                    const newFollower=prevState.user.followers.filter(item=>item!=data._id)
                 return{
                     ...prevState,
                     user:{
                         ...prevState.user,
+                        //followers:newFollower
                         followers:newFollower
                     }
                 }
@@ -103,7 +104,7 @@ const UserProfile=()=>{
                         height:"160px",
                         borderRadius:"80px"
                         }}
-                        src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=335&q=80"/>
+                        src={userProfile.user.pic}/>
                 </div>
                 <div>
                     <h4>{userProfile.user.name}</h4>
